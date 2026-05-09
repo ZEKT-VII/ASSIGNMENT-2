@@ -1,8 +1,9 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Cpu, Recycle, Battery, ArrowRight, Quote, ChevronDown } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -240,6 +241,70 @@ function ServicesSection() {
       </div>
     </section>
   )
+}
+
+/* ─── Stats Counter Section ─── */
+function StatsCounterSection() {
+  const stats = [
+    { label: 'Projects Built', value: 85, suffix: '+' },
+    { label: 'kg E-Waste Repurposed', value: 2400, suffix: '+' },
+    { label: 'Happy Clients', value: 120, suffix: '+' },
+  ];
+
+  return (
+    <section className="py-20 bg-accent-green text-void px-4 sm:px-6 relative overflow-hidden">
+      <div className="absolute inset-0 bg-grid opacity-10 pointer-events-none invert" />
+      <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-center relative z-10">
+        {stats.map((stat, i) => (
+          <motion.div
+            key={stat.label}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.2 }}
+            className="flex flex-col items-center"
+          >
+            <div className="font-display font-bold text-5xl md:text-7xl tracking-tighter mb-2">
+              <Counter value={stat.value} />{stat.suffix}
+            </div>
+            <div className="font-mono text-sm tracking-[0.1em] uppercase font-bold opacity-80">
+              {stat.label}
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function Counter({ value }: { value: number }) {
+  const [count, setCount] = useState(0);
+  const nodeRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          let start = 0;
+          const duration = 2000;
+          const stepTime = Math.abs(Math.floor(duration / value));
+          
+          const timer = setInterval(() => {
+            start += Math.ceil(value / 50); // Increment step
+            if (start > value) start = value;
+            setCount(start);
+            if (start === value) clearInterval(timer);
+          }, stepTime);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    if (nodeRef.current) observer.observe(nodeRef.current);
+    return () => observer.disconnect();
+  }, [value]);
+
+  return <span ref={nodeRef}>{count}</span>;
 }
 
 /* ─── Featured Work Section ─── */
@@ -746,6 +811,7 @@ export default function Home() {
     <>
       <HeroSection />
       <ServicesSection />
+      <StatsCounterSection />
       <FeaturedWorkSection />
       <AboutTeaserSection />
       <TestimonialsSection />

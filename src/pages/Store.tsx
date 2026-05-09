@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { products } from '../data/products';
 import { useCart } from '../hooks/CartContext';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart, ArrowRight } from 'lucide-react';
 
 export default function Store() {
   const { addToCart } = useCart();
@@ -65,9 +66,9 @@ export default function Store() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -5 }}
-              className="glass rounded-xl overflow-hidden group border border-border-subtle hover:border-accent-green/50 transition-colors"
+              className="glass rounded-xl overflow-hidden group border border-border-subtle hover:border-accent-green/50 transition-colors flex flex-col"
             >
-              <div className="relative h-64 overflow-hidden bg-void">
+              <Link to={`/store/${product.id}`} className="relative h-64 overflow-hidden bg-void block">
                 <img 
                   src={product.image} 
                   alt={product.name} 
@@ -81,13 +82,13 @@ export default function Store() {
                 <div className="absolute bottom-4 left-4 bg-void/80 backdrop-blur-md px-3 py-1 text-xs font-mono text-accent-green border border-accent-green/30 rounded">
                   {product.category}
                 </div>
-              </div>
+              </Link>
               
-              <div className="p-6">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-display font-semibold text-xl line-clamp-1">{product.name}</h3>
-                </div>
-                <p className="text-text-secondary text-sm mb-6 line-clamp-2">
+              <div className="p-6 flex flex-col flex-1">
+                <Link to={`/store/${product.id}`} className="flex justify-between items-start mb-2 group/link">
+                  <h3 className="font-display font-semibold text-xl line-clamp-1 group-hover/link:text-accent-green transition-colors">{product.name}</h3>
+                </Link>
+                <p className="text-text-secondary text-sm mb-6 line-clamp-2 flex-1">
                   {product.description}
                 </p>
                 
@@ -96,17 +97,27 @@ export default function Store() {
                     Rs. {product.price}
                   </span>
                   
-                  <button
-                    onClick={() => addToCart(product)}
-                    disabled={!product.inStock}
-                    className={`p-3 rounded-lg flex items-center justify-center transition-all ${
-                      product.inStock
-                        ? 'bg-surface hover:bg-accent-green hover:text-void text-white'
-                        : 'bg-surface/50 text-text-muted cursor-not-allowed'
-                    }`}
-                  >
-                    <ShoppingCart size={20} />
-                  </button>
+                  <div className="flex gap-2">
+                    <Link
+                      to={`/store/${product.id}`}
+                      className="p-3 rounded-lg flex items-center justify-center transition-all bg-surface hover:bg-white hover:text-void text-text-secondary hover:text-white"
+                      title="View Details"
+                    >
+                      <ArrowRight size={20} />
+                    </Link>
+                    <button
+                      onClick={() => addToCart(product)}
+                      disabled={!product.inStock}
+                      className={`p-3 rounded-lg flex items-center justify-center transition-all ${
+                        product.inStock
+                          ? 'bg-surface hover:bg-accent-green hover:text-void text-white'
+                          : 'bg-surface/50 text-text-muted cursor-not-allowed'
+                      }`}
+                      title="Add to Cart"
+                    >
+                      <ShoppingCart size={20} />
+                    </button>
+                  </div>
                 </div>
               </div>
             </motion.div>

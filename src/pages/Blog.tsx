@@ -65,6 +65,82 @@ const posts = [
       <p>Mount the stepper motor to a 3D-printed bracket. Install a hobbed bolt or knurled shaft as the filament drive gear. The heater cartridge and thermistor mount in an aluminum block machined to accept the nozzle. PID temperature control maintains 200°C ±2°C for PLA.</p>
     `,
   },
+  {
+    img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop',
+    cat: 'Hardware Hacks',
+    title: 'Building a CNC Plotter from DVD Drives',
+    excerpt: 'A comprehensive guide on combining two DVD drives to create a high-precision X-Y plotter, powered by GRBL.',
+    date: '2026-02-22',
+    content: `
+      <p>Building on our previous teardown techniques, we can combine two DVD drives to create a functional CNC pen plotter. This is one of the most rewarding e-waste projects for beginners.</p>
+      <h3>The Mechanical Assembly</h3>
+      <p>We use one DVD drive mechanism for the X-axis (base) and mount the second one perpendicular to it for the Y-axis. The laser carriage serves as the mounting point for our pen mechanism, which is lifted using a simple micro servo.</p>
+      <h3>Electronics & Firmware</h3>
+      <p>An Arduino Uno stacked with a CNC Shield V3 drives the two stepper motors using A4988 drivers. We flash the Arduino with the open-source GRBL firmware, turning it into a G-code interpreting machine.</p>
+      <h3>Software Workflow</h3>
+      <p>Using Inkscape with the Gcodetools extension, you can convert any vector graphic (.svg) into G-code. Software like Universal Gcode Sender (UGS) then streams these commands to the Arduino, bringing your scrap-built plotter to life.</p>
+    `
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1593344484962-796055d4a3a4?q=80&w=1000&auto=format&fit=crop',
+    cat: 'Programming',
+    title: 'ESP32 vs ESP8266: Which to Choose for IoT?',
+    excerpt: 'A detailed performance and capability breakdown between the two most popular Wi-Fi microcontrollers for embedded projects.',
+    date: '2026-02-15',
+    content: `
+      <p>When starting an IoT project, the microcontroller choice usually comes down to two Espressif chips: the ESP8266 or the ESP32. While the ESP32 is the successor, the ESP8266 still holds its ground.</p>
+      <h3>ESP8266: The Budget Workhorse</h3>
+      <p>If you need simple Wi-Fi connectivity for a sensor node, the ESP8266 (often found on NodeMCU boards) is sufficient. It features a single-core 80MHz processor and is highly cost-effective, but it lacks Bluetooth and has limited GPIO pins.</p>
+      <h3>ESP32: The Dual-Core Powerhouse</h3>
+      <p>The ESP32 boasts a dual-core 240MHz processor, built-in Wi-Fi and Bluetooth (Classic + BLE), hardware encryption, and significantly more GPIOs with advanced features like capacitive touch and DACs. It is our go-to choice for complex robotics and audio processing.</p>
+      <h3>Verdict</h3>
+      <p>Use the ESP8266 for simple, low-cost sensor nodes. Upgrade to the ESP32 for any project requiring RTOS (multi-threading), Bluetooth, high-speed processing, or advanced peripherals.</p>
+    `
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1620283085439-39620a1e21c4?q=80&w=1000&auto=format&fit=crop',
+    cat: 'Power Systems',
+    title: 'How We Grade and Test Reclaimed 18650 Cells',
+    excerpt: 'Our rigorous process for ensuring safety and performance when repurposing lithium-ion cells from dead laptop batteries.',
+    date: '2026-01-30',
+    content: `
+      <p>Repurposing lithium-ion cells is the heart of our power solutions, but it requires extreme caution. Not all reclaimed cells are safe or usable.</p>
+      <h3>Step 1: Visual Inspection & Voltage Check</h3>
+      <p>Cells with physical damage, rust, or leaking electrolyte are immediately recycled. We measure initial voltage; cells below 2.0V are considered "dead" and discarded due to potential internal copper dendrite formation.</p>
+      <h3>Step 2: Capacity Testing</h3>
+      <p>We use XTAR VC8 or similar analyzing chargers to run a full Charge-Discharge-Charge cycle. The discharge phase measures the actual capacity in mAh. We only keep cells that retain at least 75% of their original rated capacity.</p>
+      <h3>Step 3: Internal Resistance (IR)</h3>
+      <p>A cell with high internal resistance will heat up under load. We measure IR using a dedicated AC impedance tester (like the YR1030+). Cells with IR > 80mΩ are relegated to low-drain applications like flashlights, not power banks.</p>
+    `
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=1000&auto=format&fit=crop',
+    cat: 'Hardware Hacks',
+    title: 'From Broken Tablet to Oscilloscope Display',
+    excerpt: 'Salvaging high-resolution TFT screens from e-waste and interfacing them with microcontrollers using LVDS/MIPI to RGB converters.',
+    date: '2026-01-12',
+    content: `
+      <p>A cracked digitizer doesn't mean the LCD underneath is dead. Reclaiming these high-resolution displays can provide beautiful interfaces for your hardware projects.</p>
+      <h3>Identifying the Interface</h3>
+      <p>Most modern tablet displays use MIPI DSI, which is very difficult to drive directly from an MCU. Older or cheaper tablets often use LVDS or parallel RGB. You must identify the panel model number (printed on the back) to find its datasheet.</p>
+      <h3>Driving the Display</h3>
+      <p>We often use an SSD1963 or RA8875 controller board as a bridge. For our Portable Oscilloscope project, we used an STM32F429 which has an integrated LCD-TFT controller (LTDC) capable of driving RGB interfaces directly, allowing for buttery smooth waveform rendering.</p>
+    `
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop',
+    cat: 'Programming',
+    title: 'Setting Up LoRa Mesh Networks for Rural IoT',
+    excerpt: 'Overcoming Wi-Fi range limitations in agricultural monitoring using Long Range (LoRa) radio modules.',
+    date: '2025-12-05',
+    content: `
+      <p>When deploying environmental sensors across acres of farmland, standard Wi-Fi falls short. LoRa (Long Range) is the solution, capable of transmitting data over kilometers with minimal power.</p>
+      <h3>The SX1278 Module</h3>
+      <p>We utilize the SX1278 transceiver module operating at 433MHz (check local regulations for allowed frequencies). It interfaces with our microcontrollers via SPI.</p>
+      <h3>Mesh Topology</h3>
+      <p>Instead of a simple point-to-point setup, we use libraries like RadioHead to establish a mesh network. If Node A cannot reach the Gateway directly, it can route its message through Node B. This creates a highly resilient network perfect for rural areas with geographic obstacles.</p>
+    `
+  }
 ]
 
 export default function Blog() {
