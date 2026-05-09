@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowRight, Calendar, Tag } from 'lucide-react'
@@ -145,21 +146,44 @@ const posts = [
 
 export default function Blog() {
   const pageRef = useRef<HTMLDivElement>(null)
+  const articleRef = useRef<HTMLDivElement>(null)
   const [activeCat, setActiveCat] = useState('All')
-  const [selectedPost, setSelectedPost] = useState<number | null>(null)
+  
+  const [searchParams, setSearchParams] = useSearchParams()
+  const postParam = searchParams.get('post')
+  const selectedPost = postParam ? parseInt(postParam, 10) : null
 
   const filteredPosts = activeCat === 'All' ? posts : posts.filter((p) => p.cat === activeCat)
 
+  const handleSelectPost = (index: number | null) => {
+    if (index === null) {
+      searchParams.delete('post')
+      setSearchParams(searchParams)
+    } else {
+      setSearchParams({ post: index.toString() })
+    }
+  }
+
   useEffect(() => {
-    window.scrollTo(0, 0)
-    const ctx = gsap.context(() => {
-      gsap.fromTo('.blog-card', { opacity: 0, y: 40 }, {
-        opacity: 1, y: 0, duration: 0.7, stagger: 0.15, ease: 'power2.out',
-        scrollTrigger: { trigger: '.blog-grid', start: 'top 80%' },
-      })
-    }, pageRef)
-    return () => ctx.revert()
-  }, [])
+    if (selectedPost === null) {
+      window.scrollTo(0, 0)
+      const ctx = gsap.context(() => {
+        gsap.fromTo('.blog-card', { opacity: 0, y: 40 }, {
+          opacity: 1, y: 0, duration: 0.7, stagger: 0.15, ease: 'power2.out',
+          scrollTrigger: { trigger: '.blog-grid', start: 'top 80%' },
+        })
+      }, pageRef)
+      return () => ctx.revert()
+    } else {
+      // Scroll to the article content when a post is opened
+      setTimeout(() => {
+        if (articleRef.current) {
+          const y = articleRef.current.getBoundingClientRect().top + window.scrollY - 100;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }, 50);
+    }
+  }, [selectedPost])
 
   return (
     <div ref={pageRef} className="pt-16">
@@ -227,7 +251,7 @@ export default function Blog() {
                     </span>
                   </div>
                   <button
-                    onClick={() => setSelectedPost(0)}
+                    onClick={() => handleSelectPost(0)}
                     className="inline-flex items-center gap-2 font-mono font-medium text-xs text-accent-green tracking-[0.06em] mt-6 group"
                   >
                     READ ARTICLE
@@ -239,10 +263,10 @@ export default function Blog() {
           )}
 
           {/* Post Grid / Article View */}
-          {selectedPost !== null ? (
-            <div className="max-w-[800px] mx-auto">
+          {selectedPost !== null && posts[selectedPost] ? (
+            <div className="max-w-[800px] mx-auto" ref={articleRef}>
               <button
-                onClick={() => setSelectedPost(null)}
+                onClick={() => handleSelectPost(null)}
                 className="font-mono text-sm text-accent-green mb-8 hover:underline"
               >
                 ← Back to Articles
@@ -280,7 +304,8 @@ export default function Blog() {
               {(activeCat === 'All' ? posts.slice(1) : filteredPosts).map((p) => (
                 <article
                   key={p.title}
-                  className="blog-card group bg-surface rounded-lg overflow-hidden border border-border-subtle opacity-0"
+                  onClick={() => handleSelectPost(posts.indexOf(p))}
+                  className="blog-card group bg-surface rounded-lg overflow-hidden border border-border-subtle opacity-0 cursor-pointer"
                 >
                   <div className="aspect-video overflow-hidden">
                     <img
@@ -302,13 +327,10 @@ export default function Blog() {
                     </p>
                     <div className="flex items-center justify-between mt-4">
                       <span className="font-mono text-[11px] text-text-muted">{p.date}</span>
-                      <button
-                        onClick={() => setSelectedPost(posts.indexOf(p))}
-                        className="font-mono text-xs text-accent-green tracking-[0.06em] group flex items-center gap-1"
-                      >
+                      <span className="font-mono text-xs text-accent-green tracking-[0.06em] group flex items-center gap-1">
                         READ
                         <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
-                      </button>
+                      </span>
                     </div>
                   </div>
                 </article>

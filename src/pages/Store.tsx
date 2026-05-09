@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { products } from '../data/products';
@@ -8,6 +8,10 @@ import { ShoppingCart, ArrowRight } from 'lucide-react';
 export default function Store() {
   const { addToCart } = useCart();
   const [filter, setFilter] = useState('All');
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const categories = ['All', ...Array.from(new Set(products.map(p => p.category)))];
 
