@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, ShoppingCart } from 'lucide-react'
+import { useCart } from '../hooks/CartContext'
 
 const navLinks = [
   { path: '/', label: 'Home' },
   { path: '/services', label: 'Services' },
+  { path: '/store', label: 'Store' },
   { path: '/gallery', label: 'Work' },
   { path: '/about', label: 'About' },
   { path: '/blog', label: 'Blog' },
@@ -15,6 +17,9 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const location = useLocation()
+  const { cart, setIsCartOpen } = useCart()
+  
+  const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -72,6 +77,18 @@ export default function Header() {
 
           {/* CTA + Hamburger */}
           <div className="flex items-center gap-4">
+            <button
+              onClick={() => setIsCartOpen(true)}
+              className="relative p-2 text-white hover:text-accent-green transition-colors"
+              aria-label="Open cart"
+            >
+              <ShoppingCart size={20} />
+              {cartItemCount > 0 && (
+                <span className="absolute top-0 right-0 bg-accent-green text-void text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center translate-x-1 -translate-y-1">
+                  {cartItemCount}
+                </span>
+              )}
+            </button>
             <Link
               to="/contact"
               className="hidden sm:inline-flex bg-accent-green text-void font-display font-semibold text-xs tracking-[0.06em] px-5 py-2.5 rounded hover:shadow-glow hover:scale-[1.02] transition-all duration-300"

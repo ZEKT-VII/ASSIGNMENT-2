@@ -195,7 +195,7 @@ function ServicesSection() {
   ]
 
   return (
-    <section ref={sectionRef} className="py-24 md:py-40 bg-void px-4 sm:px-6">
+    <section ref={sectionRef} className="py-24 md:py-40 bg-grid px-4 sm:px-6">
       <div className="max-w-[1200px] mx-auto">
         <div className="mb-16">
           <span className="font-mono font-medium text-xs text-accent-green tracking-[0.08em]">
@@ -215,7 +215,7 @@ function ServicesSection() {
           {services.map((s) => (
             <div
               key={s.num}
-              className="service-card relative bg-surface border border-border-subtle rounded-lg p-8 md:p-10 hover:border-[rgba(0,255,0,0.15)] hover:-translate-y-1 transition-all duration-300 opacity-0"
+              className="service-card glass relative border border-border-subtle rounded-lg p-8 md:p-10 hover:border-accent-green hover:-translate-y-1 hover:shadow-glow transition-all duration-300 opacity-0"
             >
               <span className="absolute top-6 right-6 font-mono text-[48px] text-text-muted opacity-30 leading-none">
                 {s.num}
@@ -280,7 +280,8 @@ function FeaturedWorkSection() {
   ]
 
   return (
-    <section ref={sectionRef} className="py-24 md:py-40 bg-surface px-4 sm:px-6">
+    <section ref={sectionRef} className="py-24 md:py-40 bg-void px-4 sm:px-6 relative overflow-hidden">
+      <div className="absolute inset-0 bg-grid opacity-30 pointer-events-none" />
       <div className="max-w-[1200px] mx-auto">
         <div className="mb-16">
           <span className="font-mono font-medium text-xs text-accent-green tracking-[0.08em]">
@@ -300,7 +301,7 @@ function FeaturedWorkSection() {
           {projects.map((p) => (
             <div
               key={p.title}
-              className="project-card group relative overflow-hidden rounded-lg opacity-0"
+              className="project-card glass group relative overflow-hidden rounded-lg opacity-0 hover:shadow-glow hover:border-accent-green transition-all duration-300 border border-border-subtle"
             >
               <div className="aspect-video overflow-hidden">
                 <img
@@ -481,7 +482,7 @@ function TestimonialsSection() {
           {testimonials.map((t) => (
             <div
               key={t.author}
-              className="testimonial-card bg-elevated p-8 rounded-lg border-l-[3px] border-accent-green opacity-0"
+              className="testimonial-card glass p-8 rounded-lg border-l-[3px] border-accent-green opacity-0"
             >
               <Quote size={24} className="text-accent-green mb-4" />
               <p className="font-body text-base text-white italic leading-relaxed mb-6">
@@ -568,7 +569,7 @@ function BlogPreviewSection() {
           {posts.map((p) => (
             <article
               key={p.title}
-              className="blog-card group bg-surface rounded-lg overflow-hidden opacity-0"
+              className="blog-card glass group rounded-lg overflow-hidden opacity-0 border border-border-subtle hover:border-accent-green hover:-translate-y-1 hover:shadow-glow transition-all duration-300"
             >
               <div className="aspect-video overflow-hidden">
                 <img
