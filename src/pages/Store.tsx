@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { products } from '../data/products';
+import SEO from '../components/SEO';
 import { useCart } from '../hooks/CartContext';
 import { ShoppingCart, ArrowRight } from 'lucide-react';
 
@@ -21,6 +22,10 @@ export default function Store() {
 
   return (
     <div className="pt-24 pb-20 min-h-screen bg-grid">
+      <SEO 
+        title="Hardware Store | Scrap & Silicon Solutions"
+        description="Shop custom-built ESP32 projects, reclaimed battery packs, and sustainable IoT hardware designed and built in Lahore."
+      />
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
         
         {/* Header */}

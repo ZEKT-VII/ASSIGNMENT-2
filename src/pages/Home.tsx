@@ -1,11 +1,35 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
+import SEO from '../components/SEO'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Cpu, Recycle, Battery, ArrowRight, Quote, ChevronDown } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { Cpu, Recycle, Battery, ArrowRight, ChevronDown, Quote } from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger)
+
+export default function Home() {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+  return (
+    <>
+      <SEO 
+        title="Scrap & Silicon Solutions | Sustainable Hardware & Embedded Systems"
+        description="Lahore's premier lab for e-waste repurposing, ESP32 automation, and custom power systems. We transform electronic scrap into innovative hardware solutions."
+        keywords="Scrap and Silicon, E-waste Lahore, ESP32 Robotics Pakistan, Sustainable Hardware, Embedded Systems Lahore"
+      />
+      <HeroSection />
+      <ServicesSection />
+      <StatsCounterSection />
+      <FeaturedWorkSection />
+      <AboutTeaserSection />
+      <TestimonialsSection />
+      <BlogPreviewSection />
+      <LeadGenSection />
+    </>
+  )
+}
 
 /* ─── Hero Section ─── */
 function HeroSection() {
@@ -64,7 +88,6 @@ function HeroSection() {
       ref={heroRef}
       className="relative min-h-[100dvh] bg-void flex flex-col items-center justify-center overflow-hidden px-4"
     >
-      {/* Animated Ruler */}
       <div
         ref={rulerRef}
         className="absolute top-[30vh] left-0 right-0 h-[60px] bg-ruler-bg/80 overflow-hidden"
@@ -96,7 +119,6 @@ function HeroSection() {
         </div>
       </div>
 
-      {/* Hero Content */}
       <div className="relative z-10 text-center max-w-[800px] mt-16">
         <div
           ref={taglineRef}
@@ -140,7 +162,6 @@ function HeroSection() {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
         <ChevronDown size={24} className="text-text-muted" />
       </div>
@@ -228,13 +249,6 @@ function ServicesSection() {
               <p className="font-body text-base text-text-secondary leading-relaxed mb-6">
                 {s.desc}
               </p>
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-1 font-mono font-medium text-xs text-accent-green tracking-[0.06em] group"
-              >
-                REQUEST A QUOTE
-                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
             </div>
           ))}
         </div>
@@ -256,12 +270,8 @@ function StatsCounterSection() {
       <div className="absolute inset-0 bg-grid opacity-10 pointer-events-none invert" />
       <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-center relative z-10">
         {stats.map((stat, i) => (
-          <motion.div
+          <div
             key={stat.label}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.2 }}
             className="flex flex-col items-center"
           >
             <div className="font-display font-bold text-5xl md:text-7xl tracking-tighter mb-2">
@@ -270,7 +280,7 @@ function StatsCounterSection() {
             <div className="font-mono text-sm tracking-[0.1em] uppercase font-bold opacity-80">
               {stat.label}
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
     </section>
@@ -290,7 +300,7 @@ function Counter({ value }: { value: number }) {
           const stepTime = Math.abs(Math.floor(duration / value));
           
           const timer = setInterval(() => {
-            start += Math.ceil(value / 50); // Increment step
+            start += Math.ceil(value / 50); 
             if (start > value) start = value;
             setCount(start);
             if (start === value) clearInterval(timer);
@@ -390,15 +400,6 @@ function FeaturedWorkSection() {
               </div>
             </div>
           ))}
-        </div>
-
-        <div className="text-center mt-12">
-          <Link
-            to="/gallery"
-            className="inline-flex items-center gap-2 border border-border-subtle text-white font-display font-semibold text-sm tracking-[0.04em] px-8 py-4 rounded hover:border-accent-green hover:text-accent-green transition-all duration-300"
-          >
-            VIEW FULL GALLERY <ArrowRight size={16} />
-          </Link>
         </div>
       </div>
     </section>
@@ -707,93 +708,115 @@ function LeadGenSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-24 md:py-40 bg-surface px-4 sm:px-6">
-      <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
+    <section ref={sectionRef} className="py-24 md:py-40 bg-surface px-4 sm:px-6 relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-grid opacity-5 pointer-events-none" />
+      <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:items-center">
         {/* Form */}
-        <div>
+        <div className="glass p-8 md:p-12 rounded-2xl border border-border-subtle relative z-10">
           <span className="font-mono font-medium text-xs text-accent-green tracking-[0.08em]">
             /// GET STARTED
           </span>
-          <h2 className="font-display font-bold text-[clamp(32px,5vw,72px)] tracking-[-0.03em] text-white mt-2">
+          <h2 className="font-display font-bold text-[clamp(32px,4vw,56px)] tracking-[-0.03em] text-white mt-2 leading-tight">
             START A
             <br />
             CUSTOM BUILD
           </h2>
 
-          <form className="mt-10 space-y-6" onSubmit={(e) => { e.preventDefault(); alert('Thank you! We will contact you soon.'); }}>
+          <form className="mt-10 space-y-5" onSubmit={(e) => { e.preventDefault(); alert('Transmission Received. Our engineers will contact you shortly.'); }}>
             <div className="lead-form-field opacity-0">
-              <label className="block font-mono font-medium text-[11px] text-text-secondary tracking-[0.06em] uppercase mb-2">
-                Name
+              <label className="block font-mono font-medium text-[10px] text-text-secondary tracking-[0.1em] uppercase mb-1.5">
+                Full Name
               </label>
               <input
                 type="text"
                 required
-                className="w-full bg-void border border-border-subtle rounded px-4 py-3.5 font-body text-[15px] text-white focus:border-accent-green focus:shadow-[0_0_0_2px_rgba(0,255,0,0.1)] outline-none transition-all"
-                placeholder="Your name"
+                className="w-full bg-void/50 border border-border-subtle rounded-lg px-4 py-3.5 font-body text-[15px] text-white focus:border-accent-green focus:ring-1 focus:ring-accent-green outline-none transition-all placeholder:text-text-muted/30"
+                placeholder="Enter your name"
               />
             </div>
             <div className="lead-form-field opacity-0">
-              <label className="block font-mono font-medium text-[11px] text-text-secondary tracking-[0.06em] uppercase mb-2">
-                Email
+              <label className="block font-mono font-medium text-[10px] text-text-secondary tracking-[0.1em] uppercase mb-1.5">
+                Work Email
               </label>
               <input
                 type="email"
                 required
-                className="w-full bg-void border border-border-subtle rounded px-4 py-3.5 font-body text-[15px] text-white focus:border-accent-green focus:shadow-[0_0_0_2px_rgba(0,255,0,0.1)] outline-none transition-all"
-                placeholder="your@email.com"
+                className="w-full bg-void/50 border border-border-subtle rounded-lg px-4 py-3.5 font-body text-[15px] text-white focus:border-accent-green focus:ring-1 focus:ring-accent-green outline-none transition-all placeholder:text-text-muted/30"
+                placeholder="email@company.com"
               />
             </div>
             <div className="lead-form-field opacity-0">
-              <label className="block font-mono font-medium text-[11px] text-text-secondary tracking-[0.06em] uppercase mb-2">
-                Project Details
+              <label className="block font-mono font-medium text-[10px] text-text-secondary tracking-[0.1em] uppercase mb-1.5">
+                Project Vision
               </label>
               <textarea
                 rows={4}
                 required
-                className="w-full bg-void border border-border-subtle rounded px-4 py-3.5 font-body text-[15px] text-white focus:border-accent-green focus:shadow-[0_0_0_2px_rgba(0,255,0,0.1)] outline-none transition-all resize-none"
-                placeholder="Tell us about your project..."
+                className="w-full bg-void/50 border border-border-subtle rounded-lg px-4 py-3.5 font-body text-[15px] text-white focus:border-accent-green focus:ring-1 focus:ring-accent-green outline-none transition-all resize-none placeholder:text-text-muted/30"
+                placeholder="Describe what you want to build..."
               />
             </div>
             <button
               type="submit"
-              className="lead-form-field w-full bg-accent-green text-void font-display font-semibold text-sm tracking-[0.04em] py-4 rounded hover:brightness-110 transition-all opacity-0"
+              className="lead-form-field w-full bg-accent-green text-void font-display font-bold text-sm tracking-[0.08em] py-4 rounded-lg hover:shadow-glow hover:scale-[1.01] active:scale-95 transition-all opacity-0 flex items-center justify-center gap-2"
             >
-              SEND INQUIRY
+              INITIATE CONSULTATION <ArrowRight size={18} />
             </button>
           </form>
         </div>
 
         {/* Contact Info */}
-        <div className="lead-info opacity-0">
-          <p className="font-mono font-medium text-sm text-accent-green">LAHORE, PAKISTAN</p>
-          <p className="font-body text-base text-text-secondary mt-2">
-            123 Tech Corridor, Gulberg III
-            <br />
-            Lahore, Punjab 54000
-          </p>
-          <p className="font-mono text-sm text-white mt-6">hello@scrapsilicon.com</p>
-          <p className="font-mono text-sm text-white mt-1">+92 300 1234567</p>
+        <div className="lead-info opacity-0 flex flex-col justify-center">
+          <div className="space-y-12">
+            <div>
+              <p className="font-mono font-bold text-sm text-accent-green mb-4 tracking-widest uppercase">Location HQ</p>
+              <p className="font-display text-2xl text-white font-medium">
+                123 Tech Corridor, Gulberg III
+                <br />
+                Lahore, Punjab 54000
+              </p>
+              <p className="font-body text-text-secondary mt-2 opacity-80 text-lg">
+                Available for in-person hardware consultations by appointment.
+              </p>
+            </div>
 
-          <div className="flex gap-3 mt-8">
-            {['Github', 'Linkedin', 'Twitter'].map((social) => (
-              <a
-                key={social}
-                href={`https://${social.toLowerCase()}.com`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-11 h-11 rounded-full bg-elevated flex items-center justify-center text-text-secondary hover:bg-accent-green hover:text-void hover:scale-105 transition-all duration-300"
-              >
-                {social === 'Github' && (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                )}
-                {social === 'Linkedin' && (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                )}
-                {social === 'Twitter' && (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                )}
-              </a>
-            ))}
+            <div>
+              <p className="font-mono font-bold text-sm text-accent-green mb-4 tracking-widest uppercase">Digital Channels</p>
+              <div className="space-y-2">
+                <a href="mailto:hello@scrapsilicon.com" className="block font-display text-2xl text-white hover:text-accent-green transition-colors decoration-accent-green underline-offset-4 hover:underline">
+                  hello@scrapsilicon.com
+                </a>
+                <a href="tel:+923001234567" className="block font-display text-2xl text-white hover:text-accent-green transition-colors">
+                  +92 300 1234567
+                </a>
+              </div>
+            </div>
+
+            <div>
+              <p className="font-mono font-bold text-sm text-accent-green mb-6 tracking-widest uppercase">Follow the Lab</p>
+              <div className="flex gap-4">
+                {['Github', 'Linkedin', 'Twitter'].map((social) => (
+                  <a
+                    key={social}
+                    href={`https://${social.toLowerCase()}.com`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 rounded-xl bg-void border border-border-subtle flex items-center justify-center text-text-secondary hover:border-accent-green hover:text-accent-green hover:-translate-y-1 transition-all duration-300"
+                    aria-label={social}
+                  >
+                    {social === 'Github' && (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    )}
+                    {social === 'Linkedin' && (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    )}
+                    {social === 'Twitter' && (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    )}
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -801,22 +824,4 @@ function LeadGenSection() {
   )
 }
 
-/* ─── Home Page ─── */
-export default function Home() {
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
 
-  return (
-    <>
-      <HeroSection />
-      <ServicesSection />
-      <StatsCounterSection />
-      <FeaturedWorkSection />
-      <AboutTeaserSection />
-      <TestimonialsSection />
-      <BlogPreviewSection />
-      <LeadGenSection />
-    </>
-  )
-}

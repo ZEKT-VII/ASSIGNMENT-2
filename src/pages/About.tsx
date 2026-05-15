@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import SEO from '../components/SEO'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Leaf, Lightbulb, Target, Users } from 'lucide-react'
@@ -81,6 +82,10 @@ export default function About() {
 
   return (
     <div ref={pageRef} className="pt-16">
+      <SEO 
+        title="About Us | Scrap & Silicon Solutions"
+        description="Learn about our mission to reduce electronic waste in Lahore through creative engineering and sustainable hardware development."
+      />
       {/* Hero */}
       <section className="relative min-h-[60vh] bg-void flex items-center justify-center px-4">
         <div className="text-center">

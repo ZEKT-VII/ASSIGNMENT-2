@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router'
+import { HelmetProvider } from 'react-helmet-async'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import WhatsAppFloat from './components/WhatsAppFloat'
@@ -16,27 +17,29 @@ import VisualExtras from './components/VisualExtras'
 
 function App() {
   return (
-    <CartProvider>
-      <VisualExtras />
-      <div className="min-h-screen bg-void text-white">
-        <Header />
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/store" element={<Store />} />
-            <Route path="/store/:id" element={<ProductDetail />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </main>
-        <Footer />
-        <WhatsAppFloat />
-        <CartDrawer />
-      </div>
-    </CartProvider>
+    <HelmetProvider>
+      <CartProvider>
+        <VisualExtras />
+        <div className="min-h-screen bg-void text-white">
+          <Header />
+          <main>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/store" element={<Store />} />
+              <Route path="/store/:id" element={<ProductDetail />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/gallery" element={<Gallery />} />
+              <Route path="/contact" element={<Contact />} />
+            </Routes>
+          </main>
+          <Footer />
+          <WhatsAppFloat />
+          <CartDrawer />
+        </div>
+      </CartProvider>
+    </HelmetProvider>
   )
 }
 

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router'
+import SEO from '../components/SEO'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Cpu, Recycle, Battery, ArrowRight, CheckCircle2 } from 'lucide-react'
@@ -100,6 +101,10 @@ export default function Services() {
 
   return (
     <div ref={pageRef} className="pt-16">
+      <SEO 
+        title="Our Services | Embedded Systems & E-Waste Hacks"
+        description="From ESP32 robotic automations to custom BMS power systems and creative e-waste repurposing services in Pakistan."
+      />
       {/* Hero */}
       <section className="relative min-h-[60vh] bg-void flex items-center justify-center px-4">
         <div className="text-center">
