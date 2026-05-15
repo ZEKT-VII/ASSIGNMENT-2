@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { products } from '../data/products';
-import SEO from '../components/SEO';
+import { SEO } from '../components/SEO';
 import { useCart } from '../hooks/CartContext';
 import { ShoppingCart, ArrowRight } from 'lucide-react';
 

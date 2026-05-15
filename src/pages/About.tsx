@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import SEO from '../components/SEO'
+import { SEO } from '../components/SEO'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Leaf, Lightbulb, Target, Users } from 'lucide-react'

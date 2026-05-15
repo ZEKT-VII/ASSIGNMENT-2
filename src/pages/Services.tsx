@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router'
-import SEO from '../components/SEO'
+import { SEO } from '../components/SEO'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Cpu, Recycle, Battery, ArrowRight, CheckCircle2 } from 'lucide-react'

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
-import SEO from '../components/SEO'
+import { SEO } from '../components/SEO'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Cpu, Recycle, Battery, ArrowRight, ChevronDown, Quote } from 'lucide-react'
@@ -269,7 +269,7 @@ function StatsCounterSection() {
     <section className="py-20 bg-accent-green text-void px-4 sm:px-6 relative overflow-hidden">
       <div className="absolute inset-0 bg-grid opacity-10 pointer-events-none invert" />
       <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-center relative z-10">
-        {stats.map((stat, i) => (
+        {stats.map((stat) => (
           <div
             key={stat.label}
             className="flex flex-col items-center"
