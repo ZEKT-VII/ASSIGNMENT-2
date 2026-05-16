@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router'
 import { HelmetProvider } from 'react-helmet-async'
+import { Analytics } from '@vercel/analytics/react'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import WhatsAppFloat from './components/WhatsAppFloat'
@@ -38,6 +39,7 @@ function App() {
           <WhatsAppFloat />
           <CartDrawer />
         </div>
+        <Analytics />
       </CartProvider>
     </HelmetProvider>
   )
